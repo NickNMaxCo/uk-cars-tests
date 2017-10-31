@@ -1,0 +1,3 @@
+driver: selenium (poltergeist)
+browser: safari (firefox, chrome)
+app_host: https://www.autotrader.co.uk

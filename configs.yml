@@ -1,0 +1,3 @@
+driver: selenium
+browser: safari
+app_host: https://www.autotrader.co.uk

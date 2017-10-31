@@ -4,13 +4,11 @@ class Page
 
   include Singleton
 
-  @@base_uri = 'https://www.autotrader.co.uk'
-
   attr_accessor :page
 
   def self.open
-    given.page = Capybara::Session.new(:selenium)
-    given.page.visit("#{@@base_uri}/#{url}")
+    given.page = Capybara.current_session
+    given.page.visit("#{url}")
   end
 
   def self.given
