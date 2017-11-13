@@ -6,12 +6,16 @@ class Page
 
   attr_accessor :page
 
+  def initialize
+    self.page = Capybara.current_session
+  end
+
   def self.open
-    given.page = Capybara.current_session
     given.page.visit("#{url}")
   end
 
   def self.given
     instance
   end
+
 end
