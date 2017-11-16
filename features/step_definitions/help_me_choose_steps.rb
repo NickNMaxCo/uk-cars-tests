@@ -10,7 +10,7 @@ Then /^user is redirected to a search page with selected (.+) filter$/ do |body_
   expect(DiscoverySearchPage.given.needed_checkbox(body_type)).to be_checked
 end
 
-And /^an (.+) filter is seted as (.*)$/ do |param1, param2|
+And /^an? (.+) filter is seted as (.*)$/ do |param1, param2|
   expect(DiscoverySearchPage.given.needed_radio_text(param1)).to eq param2
 end
 
@@ -19,5 +19,5 @@ When /^user clicks the link (.+)$/ do |text|
 end
 
 Then /^user is redirected to page with tutorial video$/ do
-  expect(WhichBodyStyleIsRightForMePage.given.page_url).to eq 'https://www.autotrader.co.uk/content/advice/which-body-style-is-right-for-me'
+  expect(AdviceVideoPage.given.marker).to eq 'Which body style is right for me?'
 end

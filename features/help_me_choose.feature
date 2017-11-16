@@ -1,6 +1,5 @@
 Feature: Help me choose
-
-  As a user, i want to use search filters, because they give a quick and easy way to find a car that suits me.
+  As a user, I want to use search filters, because they give a quick and easy way to find a car that suits me.
 
   Background:
     Given help me choose page is opened
@@ -24,15 +23,15 @@ Feature: Help me choose
   Scenario Outline: Browse by lifestyle
     When user choose <lifestyle> filter
     Then user is redirected to a search page with selected <body_type> filter
-      And an Price range filter is seted as <price_range>
-      And an Seats filter is seted as <seats>
-      And an Doors filter is seted as <doors>
-      And an Boot size filter is seted as <boot_size>
-      And an Gearbox filter is seted as <gearbox>
-      And an Fuel consumption filter is seted as <fuel_consumption>
-      And an Acceleration filter is seted as <acceleration>
-      And an Insurance filter is seted as <insurance>
-      And an First year tax from filter is seted as <first_year_tax_from>
+    And a Price range filter is seted as <price_range>
+    And a Seats filter is seted as <seats>
+    And a Doors filter is seted as <doors>
+    And a Boot size filter is seted as <boot_size>
+    And a Gearbox filter is seted as <gearbox>
+    And a Fuel consumption filter is seted as <fuel_consumption>
+    And an Acceleration filter is seted as <acceleration>
+    And an Insurance filter is seted as <insurance>
+    And a First year tax from filter is seted as <first_year_tax_from>
 
     Examples:
       | lifestyle     | price_range       | body_type | seats              | doors                 | boot_size                    | gearbox | fuel_consumption     | acceleration             | insurance               | first_year_tax_from |
