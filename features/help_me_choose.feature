@@ -4,7 +4,6 @@ Feature: Help me choose
   Background:
     Given help me choose page is opened
 
-  @bodystyle
   Scenario Outline: Browse by body style
     When user choose <body_style> filter
     Then user is redirected to a search page with selected <body_style> filter
@@ -19,7 +18,6 @@ Feature: Help me choose
       | Convertible |
       | Coupe       |
 
-  @lifestyle
   Scenario Outline: Browse by lifestyle
     When user choose <lifestyle> filter
     Then user is redirected to a search page with selected <body_type> filter
@@ -45,7 +43,6 @@ Feature: Help me choose
       | Performance   | £5,000 to £1m     | Coupe     | From 2 to 7+ seats | Front (2 or 3)        | Small (up to 300 litres)     |         | Any                  | Fast (under 8 seconds)   | Any                     | Any                 |
       | Off road      | £0 to £1m         | SUV       | From 2 to 7+ seats |                       |                              | Manual  | Any                  | Steady (over 12 seconds) | Any                     | Any                 |
 
-  @video
   Scenario: Checking tutorial video
     When user clicks the link Which body type is right for you.
     Then user is redirected to page with tutorial video
