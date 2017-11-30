@@ -15,7 +15,7 @@ class FindCarPage < Page
   end
 
   def invalid_postcode_text
-    page.find("p.checkbox__invalid-postcode", visible: false).text
+    page.find("p.checkbox__invalid-postcode").text
   end
 
   def select_distance(distance)
@@ -43,7 +43,7 @@ class FindCarPage < Page
   end
 
   def select_body_type(body_type)
-    page.check(body_type, visible: false)#(:xpath, "//input[value='#{body_type}']")
+    page.find(".body-type-container.#{body_type} .tick-image").double_click
   end
 
   def select_year_from(year_from)
@@ -63,19 +63,19 @@ class FindCarPage < Page
   end
 
   def max_price_options(max_price, value_option)
-    page.find_field("#{max_price}").all('option').drop(1).all? {|option| option.value.to_i >= value_option.to_i}
+    page.find_field("#{max_price}").all('option').drop(1).all?{|option| option.value.to_i >= value_option.to_i}
   end
 
   def min_price_options(min_price, value_option)
-    page.find_field("#{min_price}").all('option').drop(1).all? {|option| option.value.to_i <= value_option.to_i}
+    page.find_field("#{min_price}").all('option').drop(1).all?{|option| option.value.to_i <= value_option.to_i}
   end
 
   def max_seats_options(max_seats, value_option)
-    page.find_field("#{max_seats}").all('option').drop(1).all? {|option| option.value.to_i >= value_option.to_i}
+    page.find_field("#{max_seats}").all('option').drop(1).all?{|option| option.value.to_i >= value_option.to_i}
   end
 
   def min_seats_options(min_seats, value_option)
-    page.find_field("#{min_seats}").all('option').drop(1).all? {|option| option.value.to_i <= value_option.to_i}
+    page.find_field("#{min_seats}").all('option').drop(1).all?{|option| option.value.to_i <= value_option.to_i}
   end
 
 end

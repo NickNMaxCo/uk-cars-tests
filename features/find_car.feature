@@ -1,13 +1,13 @@
-Feature: Help me choose
+Feature: Find car
   As a user, I want to use search filters, because they give a quick and easy way to find a car that suits me.
 
   Background:
     Given page with filters for search cars is opened
 
-  Scenario: Checking correct postcode
-    When user fill in Postcode field with correct data
+  Scenario Outline: Checking correct postcode
+    When user fill in Postcode field with <postcode>
     And click the Search cars button
-    Then all cars possible for purchase ere shown
+    Then all cars possible for purchase are shown
     And a Make filter is selected as Any
     And a Model filter is selected as Any
     And a Model Variant filter is selected as Any
@@ -21,18 +21,26 @@ Feature: Help me choose
     And an Acceleration filter is selected as Any
     And a Gearbox filter is selected as Any
     And a Drivetrain filter is selected as Any
-   # And a CO2 emissions filter is selected as Any
     And a Doors filter is selected as Any
     And a Seats filter is selected as Any
     And a Insurance Group filter is selected as Any
     And a Annual tax filter is selected as Any
     And a Colour filter is selected as Any
     And a Private & trade filter is selected as Any
+    And filter CO2 emissions is selected as Any too
 
-  Scenario: Checking incorrect postcode
-    When user fill in Postcode field with incorrect data
+    Examples:
+      | postcode |
+      |  E203EL  |
+
+  Scenario Outline: Checking incorrect postcode
+    When user fill in Postcode field with <postcode>
     And click the Search cars button
     Then message 'Please enter a valid UK postcode' is shown
+
+    Examples:
+      | postcode |
+      |  E203E1  |
 
   Scenario Outline: Checking 'Distance' filter
     When user fill in Postcode field with correct data
@@ -112,7 +120,7 @@ Feature: Help me choose
     Examples:
       | min_price_option | min_price | max_price_option |  max_price |
       |      5000        |   £5,000  |      10000       |   £10,000  |
-
+@test
   Scenario Outline: Checking 'Body type' filter
     When user fill in Postcode field with correct data
     And choose some <body_type> from Body type filter
@@ -138,21 +146,20 @@ Feature: Help me choose
     When user fill in Postcode field with correct data
     And select <filter_value_option> from <filter_name> filter
     And click the Search cars button
-    Then with respect to selected <filter_option> from <filter_text> filter all cars are shown
+    Then with respect to selected <filter_option> from <filter_name> filter all cars are shown
 
     Examples:
-      | filter_name        | filter_value_option |  filter_text     | filter_option        |
-      | make               | AUDI                | Make             | Audi                 |
-     # | fuel-consumption   | OVER_40             | Fuel consumption | 40+ mpg              |
-     # | quantity-of-doors  | 3                   | Doors            | 2 doors              |
-     # | annual-tax-cars    | TO_210              | Annual tax       | Up to £210           |
-     # | co2-emissions-cars | TO_100              | CO2 emissions    | Up to 100 g / km CO2 |
-     # | zero-to-60         | TO_8                | Acceleration     | 0-8s (0-60mph)       |
-     # | colour             | Orange              | Colour           | Orange               |
-     # | fuel-type          | Diesel              | Fuel type        | Diesel               |
-     # | transmission       | Manual              | Gearbox          | Manual               |
-     # | seller-type        | private             | Private & trade  | Private adverts      |
-     # | insuranceGroup     | 20U                 | Insurance Group  | Up to 20             |
+      | filter_name        | filter_value_option | filter_option   |
+      | make               | AUDI                | Audi            |
+      | fuel-consumption   | OVER_40             | 40+ mpg         |
+      | quantity-of-doors  | 3                   | 3 doors         |
+      | annual-tax-cars    | TO_210              | Up to £210      |
+      | zero-to-60         | TO_8                | 0-8s (0-60mph)  |
+      | colour             | Orange              | Orange          |
+      | fuel-type          | Diesel              | Diesel          |
+      | transmission       | Manual              | Manual          |
+      | seller-type        | private             | Private adverts |
+      | insuranceGroup     | 20U                 | Up to 20        |
 
   Scenario Outline: Checking 'Max engine size' filter
     When user fill in Postcode field with correct data
@@ -267,3 +274,13 @@ Feature: Help me choose
     Examples:
       | filter_min_seats | filter_max_seats | filter_value_option |
       | minimum-seats    | maximum-seats    | 4                   |
+
+  Scenario Outline: Checking 'CO2 emissions' filter
+    When user fill in Postcode field with correct data
+    And select <filter_value_option> from <filter_name> filter
+    And click the Search cars button
+    Then all cars with <filter_option> or less <filter_name> are shownnn
+
+    Examples:
+      | filter_name        | filter_value_option | filter_option        |
+      | co2-emissions-cars | TO_100              | Up to 100 g / km CO2 |
