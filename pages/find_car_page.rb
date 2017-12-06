@@ -10,7 +10,7 @@ class FindCarPage < Page
     page.fill_in('Postcode', with: data)
   end
 
-  def push_button(data)
+  def click_button(data)
     page.click_button(data)
   end
 

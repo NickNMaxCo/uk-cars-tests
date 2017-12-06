@@ -1,4 +1,4 @@
-Given /^page with filters for search cars is opened$/ do
+Given /^search page is opened$/ do
   FindCarPage.open
 end
 
@@ -6,35 +6,27 @@ When /^user fill in Postcode field with (\S+)$/ do |data|
   FindCarPage.given.enter_data(data)
 end
 
-When /^user fill in Postcode field with correct data$/ do
-  FindCarPage.given.enter_data('E203EL')
+When /^click the (.+) button$/ do |button_name|
+  FindCarPage.given.click_button(button_name)
 end
 
-And /^click the (.+) button$/ do |button_name|
-  FindCarPage.given.push_button(button_name)
-end
-
-Then /^all cars possible for purchase are shown$/ do
-
-end
-
-And /^an? (.+) filter is selected as (.*)$/ do |param1, param2|
+Then /^on the page with found cars an? (.+) filter is selected as (.+)$/ do |param1, param2|
   expect(CarsListPage.given.needed_button_text(param1)).to eq param2
 end
 
-And /^filter CO2 emissions is selected as (\w+) too$/ do |param|
-  expect(CarsListPage.given.selected_CO2_emissions('co2-emissions-cars')).to eq param
+Then /^an? (.+) filter is selected as (.*)$/ do |param1, param2|
+  expect(CarsListPage.given.needed_button_text(param1)).to eq param2
 end
 
-When /^user fill in Postcode field with incorrect data$/ do
-  FindCarPage.given.enter_data('E203E1')
+Then /^filter CO2 emissions is selected as (\w+) too$/ do |param|
+  expect(CarsListPage.given.selected_CO2_emissions('co2-emissions-cars')).to eq param
 end
 
 Then /^message '(.+)' is shown$/ do |message|
   expect(FindCarPage.given.invalid_postcode_text).to eq message
 end
 
-And /^choose some (.+) from Distance filter$/ do |distance|
+When /^choose some (.+) from Distance filter$/ do |distance|
   FindCarPage.given.select_distance(distance)
 end
 
@@ -42,7 +34,7 @@ Then /^all cars which possible for purchase in radius of (.+) are shown$/ do |di
   expect(CarsListPage.given.distance_selectbox(distance)).to be_selected
 end
 
-And /^uncheck (.+) checkbox$/ do |value|
+When /^uncheck (.+) checkbox$/ do |value|
   FindCarPage.given.click_show_checkbox(value)
 end
 
@@ -50,11 +42,11 @@ Then /^only (.+) cars are shown$/ do |value|
   expect(CarsListPage.given.check_show_checkbox(value)).to be_checked
 end
 
-And /^the (.+) checkbox is unchecked$/ do |value|
+Then /^the (.+) checkbox is unchecked$/ do |value|
   expect(CarsListPage.given.check_show_checkbox(value)).to_not be_checked
 end
 
-And /^choose some (.+) from Make filter$/ do |brand|
+When /^choose some (.+) from Make filter$/ do |brand|
   FindCarPage.given.select_brand(brand)
 end
 
@@ -62,7 +54,7 @@ Then /^all cars which possible for purchase from (.+) are shown$/ do |brand|
   expect(CarsListPage.given.selected_make_brand).to eq brand
 end
 
-And /^choose some (.+) from Model filter$/ do |model|
+When /^choose some (.+) from Model filter$/ do |model|
   FindCarPage.given.select_model(model)
 end
 
@@ -71,7 +63,7 @@ Then /^all cars which possible for purchase according to selected (.+) and (.+) 
   expect(CarsListPage.given.selected_model).to eq model
 end
 
-And /^choose some (.+) from Min price filter$/ do |min_price|
+When /^choose some (.+) from Min price filter$/ do |min_price|
   FindCarPage.given.select_min_price(min_price)
 end
 
@@ -79,7 +71,7 @@ Then /^all cars which have (.+) or more are shown$/ do |min_price|
   expect(CarsListPage.given.selected_min_price).to eq min_price
 end
 
-And /^choose some (.+) from Max price filter$/ do |max_price|
+When /^choose some (.+) from Max price filter$/ do |max_price|
   FindCarPage.given.select_max_price(max_price)
 end
 
@@ -92,7 +84,7 @@ Then /^all cars which have price between (.+) and (.+) are shown$/ do |min_price
   expect(CarsListPage.given.selected_max_price).to eq max_price
 end
 
-And /^choose some (.+) from Body type filter$/ do |body_type|
+When /^choose some (.+) from Body type filter$/ do |body_type|
   FindCarPage.given.select_body_type(body_type)
 end
 
@@ -100,7 +92,7 @@ Then /^all (.+) cars are shown$/ do |body_type|
   expect(CarsListPage.given.selected_body_type).to eq body_type
 end
 
-And /^choose some (.+) from Year from filter$/ do |year_from|
+When /^choose some (.+) from Year from filter$/ do |year_from|
   FindCarPage.given.select_year_from(year_from)
 end
 
@@ -108,7 +100,7 @@ Then /^all cars with (.+) production are shown$/ do |year_from|
   expect(CarsListPage.given.selected_year_from).to eq year_from
 end
 
-And /^select (.+) from (.+) filter$/ do |filter_value_option, filter_name|
+When /^select (.+) from (.+) filter$/ do |filter_value_option, filter_name|
   FindCarPage.given.select_filter_option(filter_value_option, filter_name)
 end
 
@@ -136,34 +128,75 @@ Then /^cars with number of (\S+) no less than (.)$/ do |filter_text, filter_min_
   expect(CarsListPage.given.selected_field_min_seats(filter_text)).to eq filter_min_option
 end
 
-And /^number of (\S+) no more than (.) are shown$/ do |filter_text, filter_max_option|
+Then /^number of (\S+) no more than (.) are shown$/ do |filter_text, filter_max_option|
   expect(CarsListPage.given.selected_field_max_seats(filter_text)).to eq filter_max_option
 end
 
-When /^user clck the (.+) link$/ do |link|
+When /^user sets some filters$/ do
+  FindCarPage.given.enter_data('E203EL')
+  FindCarPage.given.select_distance('Within 200 miles')
+  FindCarPage.given.select_filter_option('FORD', 'make')
+  FindCarPage.given.select_model('FOCUS')
+  FindCarPage.given.select_min_price('0')
+  FindCarPage.given.select_max_price('40000')
+  FindCarPage.given.select_body_type('Hatchback')
+  FindCarPage.given.select_year_from('2000')
+  FindCarPage.given.select_filter_option('OVER_30', 'fuel-consumption')
+  FindCarPage.given.select_filter_option('5', 'quantity-of-doors')
+  FindCarPage.given.select_filter_option('TO_500', 'annual-tax-cars')
+  FindCarPage.given.select_filter_option('125000', 'maximum-mileage')
+  FindCarPage.given.select_filter_option('8_TO_12', 'zero-to-60')
+  FindCarPage.given.select_filter_option('Blue', 'colour')
+  FindCarPage.given.select_filter_option('Petrol', 'fuel-type')
+  FindCarPage.given.select_filter_option('private', 'seller-type')
+  FindCarPage.given.select_filter_option('2.0', 'maximum-badge-engine-size')
+  FindCarPage.given.select_filter_option('TO_200', 'co2-emissions-cars')
+  FindCarPage.given.select_filter_option('20U', 'insuranceGroup')
+  FindCarPage.given.select_filter_option('Manual', 'transmission')
+end
+
+When /^click the (.+) link$/ do |link|
   FindCarPage.given.reset_search(link)
 end
 
-Then /^filter (.+) is reseted$/ do |filter_name|
-  expect(FindCarPage.given.filter_value(filter_name)).to eq ""
+Then /^all filters are reseted$/ do
+  expect(FindCarPage.given.filter_value('make')).to be_empty
+  expect(FindCarPage.given.filter_value('model')).to be_empty
+  expect(FindCarPage.given.filter_value('price-from')).to be_empty
+  expect(FindCarPage.given.filter_value('price-to')).to be_empty
+  expect(FindCarPage.given.filter_value('year-from')).to be_empty
+  expect(FindCarPage.given.filter_value('colour')).to be_empty
+  expect(FindCarPage.given.filter_value('fuel-consumption')).to be_empty
+  expect(FindCarPage.given.filter_value('quantity-of-doors')).to be_empty
+  expect(FindCarPage.given.filter_value('annual-tax-cars')).to be_empty
+  expect(FindCarPage.given.filter_value('co2-emissions-cars')).to be_empty
+  expect(FindCarPage.given.filter_value('zero-to-60')).to be_empty
+  expect(FindCarPage.given.filter_value('fuel-type')).to be_empty
+  expect(FindCarPage.given.filter_value('transmission')).to be_empty
+  expect(FindCarPage.given.filter_value('seller-type')).to be_empty
+  expect(FindCarPage.given.filter_value('insuranceGroup')).to be_empty
+  expect(FindCarPage.given.filter_value('maximum-badge-engine-size')).to be_empty
+  expect(FindCarPage.given.filter_value('minimum-seats')).to be_empty
+  expect(FindCarPage.given.filter_value('maximum-seats')).to be_empty
+  expect(FindCarPage.given.filter_value('maximum-mileage')).to be_empty
 end
 
 Then /^options in the (.+) filter must be no less than (.+)$/ do |max_price, value_option|
-  expect(FindCarPage.given.max_price_options(max_price, value_option)).to eq true
+  expect(FindCarPage.given.max_price_options(max_price, value_option)).to be_truthy
 end
 
 Then /^options in the (.+) filter must be no more than (.+)$/ do |min_price, value_option|
-  expect(FindCarPage.given.min_price_options(min_price, value_option)).to eq true
+  expect(FindCarPage.given.min_price_options(min_price, value_option)).to be_truthy
 end
 
 Then /^number of seats in the (.+) filter must be no less than (.+)$/ do |max_seats, value_option|
-  expect(FindCarPage.given.max_seats_options(max_seats, value_option)).to eq true
+  expect(FindCarPage.given.max_seats_options(max_seats, value_option)).to be_truthy
 end
 
 Then /^number of seats in the (.+) filter must be no more than (.+)$/ do |min_seats, value_option|
-  expect(FindCarPage.given.min_seats_options(min_seats, value_option)).to eq true
+  expect(FindCarPage.given.min_seats_options(min_seats, value_option)).to be_truthy
 end
 
-Then /^all cars with (.+) or less (.+) are shownnn$/ do |param1, param2|
+Then /^all cars with (.+) or less (.+) are shown$/ do |param1, param2|
   expect(CarsListPage.given.selected_CO2_emissions(param2)).to eq param1
 end
