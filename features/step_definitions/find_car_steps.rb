@@ -2,20 +2,20 @@ Given /^search page is opened$/ do
   FindCarPage.open
 end
 
-When /^user fill in Postcode field with (\S+)$/ do |data|
-  FindCarPage.given.enter_data(data)
+When /^user fill in Postcode field with (\S+)$/ do |code|
+  FindCarPage.given.enter_postcode(code)
 end
 
 When /^click the (.+) button$/ do |button_name|
   FindCarPage.given.click_button(button_name)
 end
 
-Then /^on the page with found cars an? (.+) filter is selected as (.+)$/ do |param1, param2|
-  expect(CarsListPage.given.needed_button_text(param1)).to eq param2
+Then /^on the page with found cars an? (.+) filter is selected as (.+)$/ do |filter_name, filter_value|
+  expect(CarsListPage.given.needed_button_text(filter_name)).to eq filter_value
 end
 
-Then /^an? (.+) filter is selected as (.*)$/ do |param1, param2|
-  expect(CarsListPage.given.needed_button_text(param1)).to eq param2
+Then /^an? (.+) filter is selected as (.*)$/ do |filter_name, filter_value|
+  expect(CarsListPage.given.needed_button_text(filter_name)).to eq filter_value
 end
 
 Then /^filter CO2 emissions is selected as (\w+) too$/ do |param|

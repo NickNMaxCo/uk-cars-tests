@@ -6,8 +6,8 @@ class FindCarPage < Page
     'used-cars'
   end
 
-  def enter_data(data)
-    page.fill_in('Postcode', with: data)
+  def enter_postcode(code)
+    page.fill_in('Postcode', with: code)
   end
 
   def click_button(data)
