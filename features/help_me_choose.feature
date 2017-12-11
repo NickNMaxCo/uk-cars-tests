@@ -21,15 +21,15 @@ Feature: Help me choose
   Scenario Outline: Browse by lifestyle
     When user choose <lifestyle> filter
     Then user is redirected to a search page with selected <body_type> filter
-    And a Price range filter is seted as <price_range>
-    And a Seats filter is seted as <seats>
-    And a Doors filter is seted as <doors>
-    And a Boot size filter is seted as <boot_size>
-    And a Gearbox filter is seted as <gearbox>
-    And a Fuel consumption filter is seted as <fuel_consumption>
-    And an Acceleration filter is seted as <acceleration>
-    And an Insurance filter is seted as <insurance>
-    And a First year tax from filter is seted as <first_year_tax_from>
+    And a Price range filter is setted as <price_range>
+    And a Seats filter is setted as <seats>
+    And a Doors filter is setted as <doors>
+    And a Boot size filter is setted as <boot_size>
+    And a Gearbox filter is setted as <gearbox>
+    And a Fuel consumption filter is setted as <fuel_consumption>
+    And an Acceleration filter is setted as <acceleration>
+    And an Insurance filter is setted as <insurance>
+    And a First year tax from filter is setted as <first_year_tax_from>
 
     Examples:
       | lifestyle     | price_range       | body_type | seats              | doors                 | boot_size                    | gearbox | fuel_consumption     | acceleration             | insurance               | first_year_tax_from |
